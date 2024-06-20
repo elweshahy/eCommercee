@@ -3,18 +3,16 @@ alert();
 const cartIcon = document.querySelector(".cartIcon");
 const cart = document.querySelector(".cart");
 const closeCart = document.querySelector(".closeCart");
-const bottomNav = document.querySelector(".bottom-nav");
 
 cartIcon.addEventListener("click", ()=> {
     cart.classList.add("active");
 });
 
+
 closeCart.addEventListener("click", ()=> {
     cart.classList.remove("active");
 });
-//  function sop2() {
-//     cart.classList.remove("active");
-// }
+
 // Start When The Document Is Ready 
 if (document.readyState == "loading") {
     document.addEventListener('DOMContentLoaded', start);
@@ -60,16 +58,8 @@ function addEvents() {
     buy_btn.addEventListener("click", handle_buyOrder);
 }
 // ==================== HANDEL EVENTS FUNCTION ==================
-// let itemsAdded ;
-//  let sophy;
-if (localStorage.mah != null) {
-    itemsAdded = JSON.parse(localStorage.mah);
-    alert();
-} else {
 let itemsAdded = [];
-}
 function handle_addCartItem() {
-    alert("تم إضافة عنصر إلي السلة")
     let product = this.parentElement;
     let title = product.querySelector(".product-title").innerHTML;
     let price = product.querySelector(".product-price").innerHTML;
@@ -87,13 +77,13 @@ function handle_addCartItem() {
      } else {
         sophyButton();
         itemsAdded.push(newToAdd);
-        localStorage.setItem("mah",  JSON.stringify(itemsAdded))
-        console.log(itemsAdded);
+        localStorage.setItem('item', JSON.stringify(itemsAdded));
+        alert("تم إضافة عنصر إلي السلة");
+        // console.log(itemsAdded);
      }
-     sophyShow();
+    shoeItem();
     update();
 }
-
 
 function handle_removeCartItem() {
     this.parentElement.remove();
@@ -101,12 +91,12 @@ function handle_removeCartItem() {
         (el )=> el.title !=
          this.parentElement.querySelector('.cart-product-title').innerHTML
         );
-        if (isNaN(sophy) || sophy <= 0) {
-            sophy = 0;
+        if (isNaN(number1) || number1 <= 0) {
+            number1 = 0;
         }else{
-        sophy --;
+        number1 --;
         let sophy1 = document.querySelector(".sophy1");
-        sophy1.innerHTML = sophy;
+        sophy1.textContent = number1;
         sophy1.style.display = "block";
         }
     update();
@@ -153,34 +143,50 @@ function updateTotal() {
 }
 
 // =============== HTML COMPONENTS ===============
-function sophyShow() {
-    let show = "";
-    for (let i = 0; i < itemsAdded.length; i++) {
-    show += `<div class="cart-box">
-                <img src=${itemsAdded[i].imgSrc} alt="" class="cart-img">
-                <div class="detail-box">
-                    <div class="cart-product-title">${itemsAdded[i].title}</div>
-                    <div class="cart-price">${itemsAdded[i].price}</div>
-                    <input type="number" value="1" class="cart-quantity">
-                </div>
-                <!-- REMOVE CART  -->
-                <button class="remove"><i class="fa fa-trash-alt cart-remove"></i></button>
-            </div>`;
+function shoeItem() {
+    var storedItem = localStorage.getItem('item');
+    if (storedItem) {
+         item = JSON.parse(localStorage.item);
+        let show = "";
+        for (let i = 0; i < item.length; i++) {
+        show += `<div class="cart-box">
+                    <img src=${item[i].imgSrc} alt="" class="cart-img">
+                    <div class="detail-box">
+                        <div class="cart-product-title">${item[i].title}</div>
+                        <div class="cart-price">${item[i].price}</div>
+                        <input type="number" value="1" class="cart-quantity">
+                    </div>
+                    <!-- REMOVE CART  -->
+                    <button class="remove"><i class="fa fa-trash-alt cart-remove"></i></button>
+                </div>`;
+        }
+        document.querySelector(".cart-content").innerHTML = show;
+    } else {
+       alert("no item here") 
     }
-    document.querySelector(".cart-content").innerHTML = show;
+   
 }
-sophyShow();
-if (localStorage.mah1 != null) {
-    sophy = JSON.parse(localStorage.mah1)
+let key = "mah1";
+let number1 = localStorage.getItem(key);
+if (number1 !== null) {
+    number1 = parseInt(number1);
 } else {
-    let sophy = 0;
+     number1 = 0;
 }
 function sophyButton() {
-    sophy ++;
+    number1 += 1;
     let sophy1 = document.querySelector(".sophy1");
-    sophy1.innerHTML = sophy;
+    sophy1.textContent = number1;
     sophy1.style.display = "block";
-    localStorage.setItem("mah1",   JSON.stringify(sophy));
+    localStorage.setItem(key,  number1);
 }
 sophyButton();
+shoeItem();
+let productBox = document.querySelector('.product-box');
+let pop = document.querySelector('.pop');
+function sasa(){
+    productBox.classList.toggle("active");
+    pop.classList.toggle("active");
+}
+// window.onload = shoeItem();
 // 58:27
