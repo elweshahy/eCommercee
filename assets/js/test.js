@@ -1,5 +1,4 @@
 // OPEN & CLOSE CART 
-alert();
 const cartIcon = document.querySelector(".cartIcon");
 const cart = document.querySelector(".cart");
 const closeCart = document.querySelector(".closeCart");
@@ -182,11 +181,22 @@ function sophyButton() {
 }
 sophyButton();
 shoeItem();
-let productBox = document.querySelector('.product-box');
-let pop = document.querySelector('.pop');
-function sasa(){
-    productBox.classList.toggle("active");
-    pop.classList.toggle("active");
-}
-// window.onload = shoeItem();
+document.addEventListener('DOMContentLoaded', function () {
+    let images = document.querySelectorAll('.product-box img');
+    let title = document.querySelectorAll('.product-box .product-title');
+    let price = document.querySelectorAll('.product-box span');
+    let popup = document.querySelector('.popup');
+    let popupImg = document.querySelector('.popupImg');
+    let copyprice = document.querySelectorAll('.copyprice');
+    let copytitle = document.querySelectorAll('.copytitle');
+    images.forEach(Boxs => {
+        Boxs.addEventListener('click', function () {
+            popupImg.src = Boxs.src;
+            popup.classList.add('active');
+        });
+    });
+    popup.addEventListener('click', function () {
+        popup.classList.remove('active');
+    });
+})
 // 58:27
